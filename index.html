@@ -1,0 +1,114 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AWAZUCAR STORE</title>
+<style>
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  background:#080d18;
+  color:white;
+  font-family:Arial,sans-serif;
+}
+header {
+  padding:25px 18px;
+  background:#101b30;
+  border-bottom:2px solid #168cff;
+}
+.logo {font-size:27px;font-weight:bold;color:#42a5ff;}
+.logo span {color:white;}
+header p {color:#aabbd1;margin-bottom:0;}
+main {padding:20px;max-width:850px;margin:auto;}
+h2 {margin-top:30px;}
+.search {
+  width:100%;padding:15px;border-radius:12px;
+  border:1px solid #31527c;background:#111e33;
+  color:white;font-size:16px;
+}
+.categories {display:flex;gap:9px;flex-wrap:wrap;margin:18px 0;}
+.categories button {
+  background:#152943;color:white;border:1px solid #31527c;
+  padding:10px 15px;border-radius:20px;
+}
+.categories button.active {background:#087ee8;}
+.grid {display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:14px;}
+.card {
+  background:#111c30;border:1px solid #243c5d;
+  border-radius:15px;padding:15px;
+}
+.appicon {
+  width:55px;height:55px;border-radius:14px;
+  background:#153b69;display:grid;place-items:center;
+  font-size:27px;margin-bottom:12px;
+}
+.card h3 {margin:5px 0;}
+.card p {color:#aabbd1;font-size:13px;min-height:32px;}
+.download {
+  display:block;text-align:center;text-decoration:none;
+  background:#087ee8;color:white;padding:10px;
+  border-radius:9px;font-weight:bold;
+}
+footer {
+  text-align:center;color:#8496ae;padding:30px;
+  border-top:1px solid #243c5d;margin-top:40px;
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">A<span>WAZUCAR</span> STORE</div>
+  <p>Tu espacio de aplicaciones digitales.</p>
+</header>
+<main>
+  <h2>Explora aplicaciones</h2>
+  <input class="search" id="search" placeholder="Buscar aplicaciones..." oninput="filterApps()">
+  <div class="categories">
+    <button class="active" onclick="setCategory('Todas',this)">Todas</button>
+    <button onclick="setCategory('Herramientas',this)">Herramientas</button>
+    <button onclick="setCategory('Juegos',this)">Juegos</button>
+    <button onclick="setCategory('Personalización',this)">Personalización</button>
+  </div>
+  <div class="grid" id="apps">
+    <article class="card" data-category="Herramientas">
+      <div class="appicon">🧰</div>
+      <h3>App de ejemplo</h3>
+      <p>Primera aplicación de AWAZUCAR.</p>
+      <a class="download" href="#" onclick="alert('Próximamente añadiremos la descarga.')">Ver aplicación</a>
+    </article>
+    <article class="card" data-category="Juegos">
+      <div class="appicon">🎮</div>
+      <h3>Juegos</h3>
+      <p>Próximamente nuevos juegos.</p>
+      <a class="download" href="#" onclick="alert('Próximamente añadiremos la descarga.')">Ver aplicación</a>
+    </article>
+    <article class="card" data-category="Personalización">
+      <div class="appicon">🎨</div>
+      <h3>Personalización</h3>
+      <p>Personaliza tus dispositivos.</p>
+      <a class="download" href="#" onclick="alert('Próximamente añadiremos la descarga.')">Ver aplicación</a>
+    </article>
+  </div>
+</main>
+<footer>© 2026 AWAZUCAR STORE · Todos los derechos reservados</footer>
+<script>
+let category='Todas';
+function setCategory(value,button) {
+  category=value;
+  document.querySelectorAll('.categories button').forEach(b=>b.classList.remove('active'));
+  button.classList.add('active');
+  filterApps();
+}
+function filterApps() {
+  const query=document.getElementById('search').value.toLowerCase();
+  document.querySelectorAll('.card').forEach(card=>{
+    const match=card.innerText.toLowerCase().includes(query);
+    const categoryMatch=category==='Todas'||card.dataset.category===category;
+    card.style.display=match&&categoryMatch?'block':'none';
+  });
+}
+</script>
+</body>
+</html>
